@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌟 English Adventure Magazine 🌟</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #FFD966;
+            --a1-color: #FFF9E3; --a2-color: #E3F2FD; --b1-color: #F3E5F5;
+            --accent: #FF8787; --text: #444;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: #A2D2FF; margin: 0;
+            display: flex; justify-content: center; align-items: center; min-height: 100vh;
+        }
+
+        .magazine {
+            width: 95%; max-width: 500px; height: 850px;
+            background: white; border-radius: 40px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.2);
+            position: relative; overflow: hidden; border: 10px solid white;
+        }
+
+        .page {
+            position: absolute; inset: 0; padding: 25px;
+            display: none; flex-direction: column;
+            animation: fadeIn 0.4s ease-in-out; overflow-y: auto; padding-bottom: 110px;
+        }
+
+        .page.active { display: flex; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+
+        /* Colores por Nivel */
+        .lvl-a1 { background-color: var(--a1-color); }
+        .lvl-a2 { background-color: var(--a2-color); }
+        .lvl-b1 { background-color: var(--b1-color); }
+
+        .header { text-align: center; margin-bottom: 10px; }
+        .header h1 { font-family: 'Fredoka One', cursive; font-size: 1.6rem; margin: 0; color: #333; }
+        .badge { background: white; padding: 4px 12px; border-radius: 15px; font-weight: 800; font-size: 0.7rem; box-shadow: 0 2px 0 rgba(0,0,0,0.1); display: inline-block; }
+
+        .box { background: white; border-radius: 15px; padding: 15px; margin-bottom: 15px; border-left: 6px solid var(--primary); font-size: 0.85rem; }
+        .example { background: #E8F5E9; padding: 10px; border-radius: 10px; border: 1px dashed #4CAF50; margin: 10px 0; color: #2E7D32; }
+        
+        .exercise { background: rgba(255,255,255,0.6); border: 2px dashed #AAA; border-radius: 15px; padding: 15px; }
+        .exercise h3 { margin-top: 0; font-size: 1rem; color: #333; }
+
+        input[type="text"] {
+            border: none; border-bottom: 2px solid var(--accent); background: transparent;
+            padding: 2px; font-weight: 700; text-align: center; width: 110px; color: #333;
+        }
+
+        .correct { background-color: #C8E6C9 !important; border-radius: 4px; }
+        .wrong { background-color: #FFCDD2 !important; border-radius: 4px; }
+
+        /* Pie de página dinámico */
+        .footer-info {
+            margin-top: auto;
+            text-align: center;
+            font-size: 0.65rem;
+            color: #888;
+            line-height: 1.4;
+            padding-top: 10px;
+        }
+
+        .nav-bar {
+            position: absolute; bottom: 0; left: 0; right: 0; height: 75px;
+            background: white; display: flex; justify-content: space-between;
+            align-items: center; padding: 0 25px; border-top: 1px solid #EEE;
+            z-index: 100;
+        }
+
+        .nav-btn {
+            background: var(--primary); border: none; width: 45px; height: 45px;
+            border-radius: 50%; font-size: 1.2rem; cursor: pointer; box-shadow: 0 4px 0 #E6B800;
+        }
+        .nav-btn:disabled { background: #EEE; box-shadow: none; cursor: not-allowed; }
+
+        .page-counter { font-weight: 800; color: #BBB; font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+
+<div class="magazine">
+    <div class="page active lvl-a1" id="p1">
+        <div class="header">
+            <br><br>
+            <img src="https://cdn-icons-png.flaticon.com/512/3532/3532840.png" width="100">
+            <h1>English Adventure</h1>
+            <p>20 Days Mission</p>
+        </div>
+        <div class="box">
+            <h3>Explorer's Name:</h3>
+            <input type="text" id="studentName" placeholder="Your name..." style="width: 100%; font-size: 1.2rem; border: 2px solid var(--primary); padding: 10px; border-radius: 10px;">
+        </div>
+        <p style="text-align: center; color: #666;">Ready to learn? Let's go! ➔</p>
+    </div>
+
+    <div class="page lvl-a1" id="p2">
+        <div class="header"><h1>1. Greetings</h1><span class="badge">A1 - Verb To Be</span></div>
+        <div class="box"><b>Explanation:</b> Use "Hello" to start. Use "I am" for names.<div class="example">Example: Hello! I <b>am</b> Peter.</div></div>
+        <div class="exercise"><h3>✍️ Let's Check:</h3><p>Hi! I <input type="text" data-ans="am"> a student.</p><p>My name <input type="text" data-ans="is"> <span class="uName">...</span>.</p></div>
+    </div>
+
+    <div class="page lvl-a1" id="p3">
+        <div class="header"><h1>2. Origins</h1><span class="badge">A1 - Countries</span></div>
+        <div class="box"><b>Explanation:</b> Nationality describes where you are from.<div class="example">Example: I am from Italy. I am <b>Italian</b>.</div></div>
+        <div class="exercise"><h3>✍️ Let's Check:</h3><p>She is from France. She is <input type="text" data-ans="french">.</p><p>I am from <input type="text" data-ans="mexico"> (Mexico).</p></div>
+    </div>
+
+    <div class="page lvl-a1" id="p4">
+        <div class="header"><h1>3. About Me</h1><span class="badge">A1 - Numbers</span></div>
+        <div class="box"><b>Explanation:</b> Use "have" for family members.<div class="example">Example: I <b>have</b> one sister.</div></div>
+        <div class="exercise"><h3>✍️ Let's Check:</h3><p>I <input type="text" data-ans="have"> two brothers.</p><p>I am <input type="text" data-ans="ten"> (10) years old.</p></div>
+    </div>
+
+    <div class="page lvl-a1" id="p5">
+        <div class="header"><h1>4. Appearance</h1><span class="badge">A1 - Clothes</span></div>
+        <div class="box"><b>Explanation:</b> Colors go before the noun.<div class="example">Example: A <b>blue</b> hat.</div></div>
+        <div class="exercise"><h3>✍️ Let's Check:</h3><p>She has <input type="text" data-ans="blue"> eyes.</p><p>I wear a red <input type="text" data-ans="shirt">.</p></div>
+    </div>
+
+    <div class="page lvl-a1" id="p6">
+        <div class="header"><h1>5. Likes</h1><span class="badge">A1 - Hobbies</span></div>
+        <div class="box"><b>Explanation:</b> "Like" expresses enjoyment.<div class="example">Example: I <b>like</b> music.</div></div>
+        <div class="exercise"><h3>✍️ Let's Check:</h3><p>I <input type="text" data-ans="like"> pizza.</p><p>She likes <input type="text" data-ans="dancing"> (bailar).</p></div>
+    </div>
+
+    <div class="page lvl-a1" id="p7">
+        <div class="header"><h1>6. Routine</h1><span class="badge">A1 - Habits</span></div>
+        <div class="box"><b>Explanation:</b> Daily actions.<div class="example">Example: I <b>eat</b> at 7:00.</div></div>
+        <div class="exercise"><h3>✍️ Let's Check:</h3><p>I <input type="text" data-ans="wake"> up early.</p><p>I <input type="text" data-ans="go"> to school.</p></div>
+    </div>
+
+    <div class="page lvl-a1" id="p8">
+        <div class="header"><h1>7. The Time</h1><span class="badge">A1 - Clock</span></div>
+        <div class="box"><b>Explanation:</b> Use "at" for hours.<div class="example">Example: It's <b>at</b> 8 o'clock.</div></div>
+        <div class="exercise"><h3>✍️ Let's Check:</h3><p>It is <input type="text" data-ans="two"> o'clock (2:00).</p><p>I sleep <input type="text" data-ans="at"> night.</p></div>
+    </div>
+
+    <div class="page lvl-a1" id="p9">
+        <div class="header"><h1>8. Questions</h1><span class="badge">A1 - Days</span></div>
+        <div class="box"><b>Explanation:</b> Start questions with "Do".<div class="example">Example: <b>Do</b> you study?</div></div>
+        <div class="exercise"><h3>✍️ Let's Check:</h3><p><input type="text" data-ans="do"> you play? Yes, I do.</p><p>Today is <input type="text" data-ans="monday"> (Lunes).</p></div>
+    </div>
+
+    <div class="page lvl-a1" id="p10">
+        <div class="header"><h1>9. Directions</h1><span class="badge">A1 - City</span></div>
+        <div class="box"><b>Explanation:</b> Next to, Straight, Left.<div class="example">Example: The bank is <b>next to</b> the park.</div></div>
+        <div class="exercise"><h3>✍️ Let's Check:</h3><p>Go <input type="text" data-ans="straight"> (derecho).</p><p>Turn <input type="text" data-ans="left"> (izquierda).</p></div>
+    </div>
+
+    <div class="page lvl-a1" id="p11">
+        <div class="header"><h1>10. Future</h1><span class="badge">A1 - Plans</span></div>
+        <div class="box"><b>Explanation:</b> "Going to" for future.<div class="example">Example: I am <b>going to</b> sleep.</div></div>
+        <div class="exercise"><h3>✍️ Let's Check:</h3><p>I am <input type="text" data-ans="going"> to study.</p><p>We <input type="text" data-ans="are"> going to eat.</p></div>
+    </div>
+
+    <div class="page lvl-a2" id="p12">
+        <div class="header"><h1>11. Food</h1><span class="badge">A2 - Quantity</span></div>
+        <div class="box"><b>Explanation:</b> Use "Some" for some items.<div class="example">Example: I have <b>some</b> apples.</div></div>
+        <div class="exercise"><h3>✍️ Let's Check:</h3><p>I want <input type="text" data-ans="some"> milk.</p><p>Is there <input type="text" data-ans="any"> bread?</p></div>
+    </div>
+
+    <div class="page lvl-a2" id="p13">
+        <div class="header"><h1>12. Past</h1><span class="badge">A2 - Simple Past</span></div>
+        <div class="box"><b>Explanation:</b> Add "-ed" to verbs.<div class="example">Example: I <b>played</b> soccer.</div></div>
+        <div class="exercise"><h3>✍️ Let's Check:</h3><p>I <input type="text" data-ans="visited"> my aunt.</p><p>She <input type="text" data-ans="cooked"> pasta.</p></div>
+    </div>
+
+    <div class="page lvl-a2" id="p14">
+        <div class="header"><h1>13. Shopping</h1><span class="badge">A2 - Prices</span></div>
+        <div class="box"><b>Explanation:</b> "How much" for cost.<div class="example">Example: <b>How much</b> is it?</div></div>
+        <div class="exercise"><h3>✍️ Let's Check:</h3><p><input type="text" data-ans="how"> much is the shirt?</p><p>It <input type="text" data-ans="costs"> $10.</p></div>
+    </div>
+
+    <div class="page lvl-a2" id="p15">
+        <div class="header"><h1>14. Weather</h1><span class="badge">A2 - Climate</span></div>
+        <div class="box"><b>Explanation:</b> Sunny, Rainy, Cold.<div class="example">Example: It is <b>sunny</b>.</div></div>
+        <div class="exercise"><h3>✍️ Let's Check:</h3><p>It is <input type="text" data-ans="cold"> in winter.</p><p>Today is <input type="text" data-ans="rainy">.</p></div>
+    </div>
+
+    <div class="page lvl-a2" id="p16">
+        <div class="header"><h1>15. Travel</h1><span class="badge">A2 - Transport</span></div>
+        <div class="box"><b>Explanation:</b> Use "by" for transport.<div class="example">Example: I go <b>by</b> bus.</div></div>
+        <div class="exercise"><h3>✍️ Let's Check:</h3><p>I travel by <input type="text" data-ans="plane">.</p><p>We go <input type="text" data-ans="by"> car.</p></div>
+    </div>
+
+    <div class="page lvl-a2" id="p17">
+        <div class="header"><h1>16. Ability</h1><span class="badge">A2 - Can</span></div>
+        <div class="box"><b>Explanation:</b> "Can" for talents.<div class="example">Example: I <b>can</b> sing.</div></div>
+        <div class="exercise"><h3>✍️ Let's Check:</h3><p>I <input type="text" data-ans="can"> speak English.</p><p>Birds <input type="text" data-ans="can"> fly.</p></div>
+    </div>
+
+    <div class="page lvl-a2" id="p18">
+        <div class="header"><h1>17. Health</h1><span class="badge">A2 - Symptoms</span></div>
+        <div class="box"><b>Explanation:</b> Use "have" for pain.<div class="example">Example: I <b>have</b> a fever.</div></div>
+        <div class="exercise"><h3>✍️ Let's Check:</h3><p>I <input type="text" data-ans="have"> a cold.</p><p>My head <input type="text" data-ans="hurts">.</p></div>
+    </div>
+
+    <div class="page lvl-a2" id="p19">
+        <div class="header"><h1>18. Family</h1><span class="badge">A2 - Relatives</span></div>
+        <div class="box"><b>Explanation:</b> Aunt, Uncle, Cousin.<div class="example">Example: My <b>aunt</b> is nice.</div></div>
+        <div class="exercise"><h3>✍️ Let's Check:</h3><p>My dad's brother is my <input type="text" data-ans="uncle">.</p><p>My <input type="text" data-ans="cousins"> are fun.</p></div>
+    </div>
+
+    <div class="page lvl-a2" id="p20">
+        <div class="header"><h1>19. Jobs</h1><span class="badge">A2 - Work</span></div>
+        <div class="box"><b>Explanation:</b> A/An + Profession.<div class="example">Example: He is <b>a</b> pilot.</div></div>
+        <div class="exercise"><h3>✍️ Let's Check:</h3><p>She is <input type="text" data-ans="a"> doctor.</p><p>I am <input type="text" data-ans="an"> actor.</p></div>
+    </div>
+
+    <div class="page lvl-b1" id="p21">
+        <div class="header"><h1>20. Home</h1><span class="badge">B1 - Comparatives</span></div>
+        <div class="box"><b>Explanation:</b> Use "-er" to compare.<div class="example">Example: Bigger, Smaller, Nicer.</div></div>
+        <div class="exercise"><h3>✍️ Let's Check:</h3><p>My house is <input type="text" data-ans="bigger"> than yours.</p><p>The city is <input type="text" data-ans="noisier">.</p></div>
+    </div>
+
+    <div class="page lvl-b1" id="p22">
+        <div class="header"><h1>Results</h1><p id="resultName">Explorer</p></div>
+        <div class="box" style="text-align: center;">
+            <p>✅ Correct: <span id="good">0</span> | ❌ Wrong: <span id="bad">0</span></p>
+            <button onclick="location.reload()" style="padding: 10px; background: var(--accent); border: none; border-radius: 10px; color: white; cursor: pointer;">RESTART</button>
+        </div>
+    </div>
+
+    <div class="nav-bar">
+        <button class="nav-btn" id="prevBtn" disabled>❮</button>
+        <span class="page-counter" id="pageCount">1 / 22</span>
+        <button class="nav-btn" id="nextBtn">❯</button>
+    </div>
+</div>
+
+<script>
+    let current = 1;
+    const total = 22;
+
+    // Generar Footer Automático en cada página
+    function createFooters() {
+        const now = new Date();
+        const dateStr = now.toLocaleDateString();
+        const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        const footerText = `EMMILY JOHANNA GONZALEZ MEJIAS - BOGOTÁ<br> ${dateStr} |  ${timeStr}`;
+        
+        document.querySelectorAll('.page').forEach(page => {
+            const footer = document.createElement('div');
+            footer.className = 'footer-info';
+            footer.innerHTML = footerText;
+            page.appendChild(footer);
+        });
+    }
+
+    function updatePage(target) {
+        document.getElementById(`p${current}`).classList.remove('active');
+        current = target;
+        document.getElementById(`p${current}`).classList.add('active');
+        
+        const name = document.getElementById('studentName').value || "Explorer";
+        document.querySelectorAll('.uName').forEach(el => el.innerText = name);
+        document.getElementById('resultName').innerText = "Congratulations, " + name + "!";
+
+        document.getElementById('pageCount').innerText = `${current} / ${total}`;
+        document.getElementById('prevBtn').disabled = current === 1;
+        document.getElementById('nextBtn').disabled = current === total;
+
+        if(current === total) check();
+    }
+
+    function check() {
+        const inputs = document.querySelectorAll('input[data-ans]');
+        let goods = 0, bads = 0;
+        inputs.forEach(inp => {
+            if(inp.value.trim().toLowerCase() === inp.getAttribute('data-ans').toLowerCase()) {
+                inp.classList.add('correct'); goods++;
+            } else {
+                inp.classList.add('wrong'); bads++;
+            }
+        });
+        document.getElementById('good').innerText = goods;
+        document.getElementById('bad').innerText = bads;
+    }
+
+    createFooters();
+    document.getElementById('nextBtn').onclick = () => updatePage(current + 1);
+    document.getElementById('prevBtn').onclick = () => updatePage(current - 1);
+</script>
+
+</body>
+</html>
